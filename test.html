@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<style>
+		</style>
+		<script src="./lib/GameBg.js"></script>
+		<script>
+			var  stage;
+
+			window.addEventListener("load",function(){
+				document.body.style.margin="0px";
+				stage = document.getElementById("stage");
+				stage.style.width=1640+"px";
+				stage.style.height=914+"px";
+				stage.style.textAlign="center";
+				stage.style.border="1px solid";
+
+				
+
+				var gamebg=new GameBg(stage,1640,914);
+				gamebg.init();
+
+			});
+
+		</script>
+ </head>
+	<body>
+		<div id ="stage"></div>
+
+	</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>메모리DB</title>
+		<style>
+			body{margin:0px}
+			#wrapper{
+				width:900px;
+				height:800px;
+				margin:auto;
+			}
+			#addUser{
+				width:200px;
+				height:800px;
+				float:left;
+				background:black;
+				color:white
+			}
+			#viewUser{
+				width:700px;
+				height:800px;
+				float:left;
+				background:green;
+				color:white;
+			}
+			#serchUser{
+				background:navy;
+				color:white;
+				width:900px;
+				height:50px;
+			}
+		</style>
+		<script>
+		var btnOK;		//등록,이벤트 전역변수
+		var btnSearch; //검색, 이벤트 전역변수
+
+		var m_id;		//입력 멤버 ID
+		var m_pwd;	//입력 멤버 PWD
+		var m_name;	//입력 멤버 이름
+		var m_money;	//입력 멤버 낸돈,
+
+		var memberList = new Array();
+		var cnt = 0;
+
+		var m_table;
+
+		window.addEventListener("load",function(){
+			getTitle();
+			getSearchMember();
+			init();
+			
+		});
+
+		function init(){
+			btnOK = document.getElementById("btn");
+			m_id = document.getElementById("m_id");
+			m_pwd = document.getElementById("m_pwd");
+			m_name = document.getElementById("m_name");
+			m_money = document.getElementById("m_money");
+		
+			btnOK.addEventListener("click",function(){
+				if(!m_id.value){
+					alert("ID 입력");
+					m_id.focus();
+					return;
+				}else if(!m_pwd.value){
+					alert("Password 입력");
+					m_pwd.focus();
+					return;
+				}else if(!m_name.value){
+					alert("이름 입력");
+					m_name.focus();
+					return;
+				}else if(!m_money.value){
+					alert("낸돈 입력");
+					m_money.focus();
+					return;
+				}else{
+					var member=[m_id.value,m_pwd.value,m_name.value,m_money.value];
+					memberList.push(member);
+					alert(memberList.length+"번째 등록.");
+					getMemberList();
+					getSumMoney();
+				}
+				
+			});
+		}
+
+		function initTable(){
+			m_table.innerHTML="";
+			getTitle();
+		}
+
+
+		function getTitle(){
+			var viewUser= document.getElementById("viewUser");
+			m_table = document.createElement("table");
+			m_table.style.width=600+"px";
+			m_table.style.height=0+"px";
+			m_table.style.border=1+"px gray";
+			m_table.style.color="white";
+			
+			var m_tr = document.createElement("tr");
+			var mNum_td=document.createElement("td");
+			mNum_td.innerText="번호";
+			var mId_td = document.createElement("td");
+			mId_td.innerText="아이디"
+			var mPwd_td = document.createElement("td");
+			mPwd_td.innerText="패스워드"
+			var mName_td = document.createElement("td");
+			mName_td.innerText="이름"
+			var mMoney_td = document.createElement("td");
+			mMoney_td.innerText="낸 돈"
+
+			m_tr.appendChild(mNum_td);
+			m_tr.appendChild(mId_td);
+			m_tr.appendChild(mPwd_td);
+			m_tr.appendChild(mName_td);
+			m_tr.appendChild(mMoney_td);
+
+			m_table.appendChild(m_tr);
+			viewUser.appendChild(m_table);
+		
+		}
+
+		function getMemberList(){
+			initTable();
+		
+			var len=memberList.length;
+			var num=len;
+			
+			for(var i=0;i<len;i--){
+				var record_tr=document.createElement("tr");
+				var num_td=document.createElement("td");
+				var id_td=document.createElement("td");
+				var pwd_td=document.createElement("td");
+				var name_td=document.createElement("td");
+				var money_td=document.createElement("td");
+
+
+				console.log(id_td);
+				num_td.innerText=num++;
+				id_td.innerText = memberList[i][0];
+				pwd_td.innerText=memberList[i][1];
+				name_td.innerText=memberList[i][2];
+				money_td.innerText=memberList[i][3];
+				
+		
+
+				record_tr.appendChild(num_td);
+				record_tr.appendChild(id_td);
+				record_tr.appendChild(pwd_td);
+				record_tr.appendChild(name_td);
+				record_tr.appendChild(money_td);
+				
+				m_table.appendChild(record_tr);
+
+			}
+		}
+
+		function getSumMoney(){
+			var sum_tr = document.createElement("tr");
+			
+			var sumName = document.createElement("td");
+			var sum_td = document.createElement("td");
+			sumName.innerText="합산";
+			sum_td.style.colspan="3";
+			sum_td.innerText="낸돈합이 들어갈자리." //member[num][m_money]에 합이 해당할 변수&함수?;
+			
+
+			sum_tr.appendChild(sumName);
+			sum_tr.appendChild(sum_td);
+			m_table.appendChild(sum_tr);
+		
+		}
+
+		function getSearchMember(){
+			btnSearch = document.getElementById("btnSearch");
+			search=document.getElementById("search");
+
+			btnSearch.addEventListener("click",function(){
+				alert("zz");
+				/*
+				for(i=0;i<=memberList.length;i++){
+					for(j=0;j<memberList.length;j++){
+						//등록된 멤버에 대한 크기만큼 반복, 그리고 조건에 따른 출력
+
+						if(memberList[i][j] && search){
+							//search와 2차배열인 memberList 비교하고, 값을 출력하는 변수 & innerText
+						}else if(...){
+							//if와 마찬가지로 각 ID,PWD, NAME에 대해 검색시 값을 출력할내용?
+						}
+					}
+				
+				}
+				*/	
+			});
+		}
+
+		</script>
+ </head>
+	<body>
+		<div id="wrapper">
+
+			<div id="serchUser">
+				검색 : <input type="text" id="search">
+				<input type="button" value="검색" id="btnSearch">
+			</div>
+
+			<div id="addUser">	
+				ID : <input type="text" size="8" maxlength="12" id="m_id"><br>
+				PWD : <input type="password" size="8" maxlength="8" id="m_pwd"><br>
+				NAME : <input type = "text" size="8"  maxlength="10" id="m_name"><br>
+				MONEY : <input type = "text" id="m_money">
+				<input type="button" value="등록" id="btn">
+			</div>
+
+			<div id="viewUser">
+			</div>
+
+		</div>
+
+	</body>
+</html>
