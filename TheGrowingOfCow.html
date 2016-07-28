@@ -8,7 +8,6 @@
 		<script src="./lib/Cow.js"> </script>
 		<script src="./lib/Weeds.js"></script>
 		<script src="./lib/lib.js"></script>
-		<script src="./lib/test.js"></script>
 		<script>
 			//기타 변수
 			var stage;
@@ -17,8 +16,6 @@
 			var key;
 			//소 변수
 			var cow;
-			var cowWid=31;
-			var cowHei=22;
 			var cowArr=[  //소 표정
 				"./images/cow/cow1.png",
 				"./images/cow/cow2.png",
@@ -28,49 +25,43 @@
 			//소 움직임
 			var cowCnt=0;
 			var step=0;
-			//배경
-			//var bgimg;
-			var bgX=0;
 			//풀
 			var weeds;
-			var weedArr =[
+			var weedImg =[
 				"./images/weeds/weed1.png",
 				"./images/weeds/weed2.png",
 				"./images/weeds/weed3.png",
 				"./images/weeds/weed4.png",
 				"./images/weeds/weed5.png"
 				];
+			var weedArr = new Array();
 
-		
+			var isEat = true;
+			
+			//문서시작시.
 			window.addEventListener("load",function(){
 				document.body.style.margin = "0px";
 				stage=document.getElementById("stage");
 				stage.style.width=stage_wid+"px";
 				stage.style.height=stage_hei+"px";
 				stage.style.backgroundImage="url('./images/gameback.png')";
-				
-				//bgimg = new BgImg(stage,1280,720);
-				//bgimg.init();
 
-				cow = new Cow(stage,cowWid,cowHei,50,312,"./images/cow/cow1.png");
-				cow.init();
-
-				/*for(var i=0;i<15;i++){
-					weeds = new Weeds(stage,30,30,i*30,307,"./images/weeds/weed1.png");
-					weeds.init();
-					weedArr.push(weeds);
-				}*/		
+				//소생성
+				cow = new Cow(stage,31,22,500,310,"./images/cow/cow1.png");
+				cow.init();	
 	
-				for(var i=0;i<8;i++){
-					var r=getRandomByRange(weedArr.length-1,1);
-
-					var weeds = new Weeds(stage, 30,30, 30*i, 301, weedArr[r]);
-					weeds.init();
-					weedArr.push(weeds);
-				}
-				
-			//bgEffect();
+				//랜덤 잡초생성
+				setTimeout(function(){
+					for(var i=0;i<10;i++){
+						var rand=getRandomByRange(weedImg.length-1,0);
+						var weedsRand=getRandomByRange(14,1);
+						var weeds = new Weeds(stage, 40,30, 40*weedsRand, 301, weedImg[rand]);
+						weeds.init();
+						weedArr.push(weeds);		
+					}
+				},300);
 			});
+
 			//키보드 누를시 이벤트
 			window.addEventListener("keydown",function(){
 				key=event.keyCode;
@@ -81,19 +72,6 @@
 					case 39: 
 						go(+1); //오른쪽
 						break;
-					case 32:	//소가 풀뜯을때,
-							/*var result= hitTest(cow,weeds);				
-							if(result){
-								console.log("충덜");
-								//충돌감지 후, 스페이스마 눌렀을시 잡초가 사라지며, 소의 크기증가.
-								cowWid+=2;
-								cowHei+=1;
-
-							}else{
-								console.log("no충덜");
-							}*/
-						break;
-
 				}
 			});
 			window.addEventListener("keyup",function(){
