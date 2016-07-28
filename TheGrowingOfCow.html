@@ -22,9 +22,11 @@
 				"./images/cow/cow3.png",
 				"./images/cow/cow4.png"
 				];
+
 			//소 움직임
 			var cowCnt=0;
 			var step=0;
+
 			//풀
 			var weeds;
 			var weedImg =[
@@ -35,8 +37,6 @@
 				"./images/weeds/weed5.png"
 				];
 			var weedArr = new Array();
-
-			var isEat = true;
 			
 			//문서시작시.
 			window.addEventListener("load",function(){
@@ -59,6 +59,7 @@
 						weeds.init();
 						weedArr.push(weeds);		
 					}
+					regenWeeds();
 				},300);
 			});
 
@@ -74,6 +75,7 @@
 						break;
 				}
 			});
+
 			window.addEventListener("keyup",function(){
 				cow.velX=0;
 				cow.running=false;
